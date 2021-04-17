@@ -17,39 +17,6 @@ struct Node{
 };
 
 
-// Given a binary tree, print its nodes in preorder
-void preorderTraversal (Node *root){
-    if (!root){
-        return;
-    }
-    cout<<root->data<<" ";
-    preorderTraversal(root->left);
-    preorderTraversal(root->right);
-}
-
-
-// Given a binary tree, print its node in inorder
-void inorderTraversal (Node *root){
-    if (!root){
-        return;
-    }
-    inorderTraversal(root->left);
-    cout<<root->data<<" ";
-    inorderTraversal(root->right);
-}
-
-
-// Given a binary tree, print its node in postorder
-void postorderTraversal (Node *root){
-    if (!root){
-        return;
-    }
-    postorderTraversal(root->left);
-    postorderTraversal(root->right);
-    cout<<root->data<<" ";
-}
-
-
 // Function to build the tree
 Node* buildTree(string str){
     //Corner case
@@ -116,6 +83,58 @@ Node* buildTree(string str){
 }
 
 
+// Given a binary tree, print its nodes in preorder
+void preorderTraversal (Node *root){
+    if (!root){
+        return;
+    }
+    cout<<root->data<<" ";
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+}
+
+
+// Given a binary tree, print its node in inorder
+void inorderTraversal (Node *root){
+    if (!root){
+        return;
+    }
+    inorderTraversal(root->left);
+    cout<<root->data<<" ";
+    inorderTraversal(root->right);
+}
+
+
+// Given a binary tree, print its node in postorder
+void postorderTraversal (Node *root){
+    if (!root){
+        return;
+    }
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    cout<<root->data<<" ";
+}
+
+
+// Given a binary tree, print its BFS traversal
+void bfsTraversal (Node *root){
+    queue<Node *> bfs_nodes;
+    // vector to store visited is not required in case of trees
+    bfs_nodes.push(root);
+    while (!bfs_nodes.empty()){
+        Node *ptr = bfs_nodes.front();
+        bfs_nodes.pop();
+        cout<<ptr->data<<" ";
+        if (ptr->left){
+            bfs_nodes.push(ptr->left);
+        }
+        if (ptr->right){
+            bfs_nodes.push(ptr->right);
+        }
+    }
+}
+
+
 /*
  * Input1.txt
  *       1
@@ -132,24 +151,24 @@ Node* buildTree(string str){
 
 
 int main() {
-    std::cout << "Different types of Tree Traversal" << std::endl;
     string s;
     getline(cin, s);
-    cout<<s<<endl;
+    cout<<"Input Binary Tree: "<<s<<endl;
     Node* root = buildTree(s);
 
-    cout<<"Preorder Traversal: ";
+    cout<<"\nDifferent types of Tree Traversal";
+
+    cout<<"\nPreorder Traversal: ";
     preorderTraversal(root);
-    cout<<endl;
 
-    cout<<"Inorder Traversal: ";
+    cout<<"\nInorder Traversal: ";
     inorderTraversal(root);
-    cout<<endl;
 
-    cout<<"Postorder Traversal: ";
+    cout<<"\nPostorder Traversal: ";
     postorderTraversal(root);
-    cout<<endl;
 
+    cout<<"\nBFS Traversal: ";
+    bfsTraversal(root);
 
     return 0;
 }
