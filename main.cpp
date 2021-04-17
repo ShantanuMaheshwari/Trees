@@ -17,6 +17,39 @@ struct Node{
 };
 
 
+// Given a binary tree, print its nodes in preorder
+void preorderTraversal (Node *root){
+    if (!root){
+        return;
+    }
+    cout<<root->data<<" ";
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+}
+
+
+// Given a binary tree, print its node in inorder
+void inorderTraversal (Node *root){
+    if (!root){
+        return;
+    }
+    inorderTraversal(root->left);
+    cout<<root->data<<" ";
+    inorderTraversal(root->right);
+}
+
+
+// Given a binary tree, print its node in postorder
+void postorderTraversal (Node *root){
+    if (!root){
+        return;
+    }
+    postorderTraversal(root->left);
+    postorderTraversal(root->right);
+    cout<<root->data<<" ";
+}
+
+
 // Function to build the tree
 Node* buildTree(string str){
     //Corner case
@@ -99,11 +132,24 @@ Node* buildTree(string str){
 
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Different types of Tree Traversal" << std::endl;
     string s;
     getline(cin, s);
     cout<<s<<endl;
     Node* root = buildTree(s);
+
+    cout<<"Preorder Traversal: ";
+    preorderTraversal(root);
+    cout<<endl;
+
+    cout<<"Inorder Traversal: ";
+    inorderTraversal(root);
+    cout<<endl;
+
+    cout<<"Postorder Traversal: ";
+    postorderTraversal(root);
+    cout<<endl;
+
 
     return 0;
 }
