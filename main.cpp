@@ -124,14 +124,32 @@ void bfsTraversal (Node *root){
     while (!bfs_nodes.empty()){
         Node *ptr = bfs_nodes.front();
         bfs_nodes.pop();
+        if (!ptr){
+            continue;
+        }
         cout<<ptr->data<<" ";
-        if (ptr->left){
-            bfs_nodes.push(ptr->left);
-        }
-        if (ptr->right){
-            bfs_nodes.push(ptr->right);
-        }
+        bfs_nodes.push(ptr->left);
+        bfs_nodes.push(ptr->right);
     }
+}
+
+
+// Given a binary tree, print its left view
+void leftViewUtil (Node *root, int cur_level, int *max_level){
+    if (!root){
+        return;
+    }
+    if (*max_level<cur_level){
+        cout<<root->data<<" ";
+        *max_level = cur_level;
+    }
+    // For right view, first call the leftViewUtil() for right child then for left child.
+    leftViewUtil(root->left, cur_level+1, max_level);
+    leftViewUtil(root->right, cur_level+1, max_level);
+}
+void leftView (Node *root){
+    int max_level=0;
+    leftViewUtil(root, 1, &max_level);
 }
 
 
@@ -169,6 +187,9 @@ int main() {
 
     cout<<"\nBFS Traversal: ";
     bfsTraversal(root);
+
+    cout<<"\nLeft View: ";
+    leftView(root);
 
     return 0;
 }
