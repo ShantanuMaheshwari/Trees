@@ -3,6 +3,8 @@
 #include <vector>
 #include <sstream>
 #include <queue>
+#include <unordered_map>
+#include <map>
 
 using namespace std;
 
@@ -153,6 +155,26 @@ void leftView (Node *root){
 }
 
 
+// Given a binary tree, print its vertical order traversal
+void verticalTraversalUtil (Node *root, int hori_dist, map<int, vector<int>> &hori_dist_map){
+    if (!root){
+        return;
+    }
+    hori_dist_map[hori_dist].push_back(root->data);
+    verticalTraversalUtil(root->left, hori_dist-1, hori_dist_map);
+    verticalTraversalUtil(root->right, hori_dist+1, hori_dist_map);
+}
+void verticalTraversal (Node *root){
+    map<int, vector<int>> hori_dist_map;
+    verticalTraversalUtil(root, 0, hori_dist_map);
+    for (auto ele: hori_dist_map){
+        for (auto i: ele.second){
+            cout<<i<<" ";
+        }
+    }
+}
+
+
 /*
  * Input1.txt
  *       1
@@ -190,6 +212,9 @@ int main() {
 
     cout<<"\nLeft View: ";
     leftView(root);
+
+    cout<<"\nVertical Traversal: ";
+    verticalTraversal(root);
 
     return 0;
 }
